@@ -16,4 +16,14 @@ class User < ApplicationRecord
   validates :email, :uniqueness => { :case_sensitive => false }
   validates :email, :presence => true
   has_secure_password
+
+  def private_boolean
+    private_flag = self.private
+
+    if private_flag == true
+      "Yes"
+    else
+      "No"
+    end
+  end
 end
