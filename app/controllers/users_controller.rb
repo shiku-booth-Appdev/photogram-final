@@ -10,8 +10,11 @@ class UsersController < ApplicationController
   def show
     the_username = params.fetch("the_username")
     @user = User.where({ :username => the_username }).at(0)
-
-    render({ :template => "users/show.html.erb" })
+    if @user.private == false
+      render({ :template => "users/show.html.erb" })
+    else
+      redirect_to("/", { :alert => "You're not authorized for that."})
+    end
   end
 
 end

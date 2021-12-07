@@ -30,9 +30,10 @@
         <li>
            <a href="/user_sign_up">Sign up</a>
         </li>
-      <% else %>
+      <% else %> 
         <li>
-          <%= session.fetch(:user_id) %>
+           <a href="/edit_user_profile"><%= User.where( {:id => session.fetch(:user_id)}).at(0).username %>
+           </a>
         </li>
         <li>
           <a href="/user_sign_out">Sign out</a>
