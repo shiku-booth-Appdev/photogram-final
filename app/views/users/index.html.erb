@@ -41,6 +41,11 @@
               <input type="hidden" name="query_status" value="Request Sent"> 
               <button> Follow </button>
             </form>
+          <% elsif follow_status.status == "pending" %>
+            <a>Request sent.</a>
+            <a href="/delete_followrequest/<%= follow_status.id %>">
+              Cancel
+            </a>
           <% else %>
             <a href="/delete_followrequest/<%= follow_status.id %>">
               Unfollow

@@ -4,9 +4,26 @@
   <dt>Private</dt>
   <dd><%= @user.private %><dd>
   <dt>Followers</dt>
-  <dd>0<dd>  
+  <dd><%= @count_of_followers %><dd>
+  <h4>Pending follow requests</h4>
+  <% @list_of_follow_requests.each do |each_request| %>
+  <ul>
+    <li>
+      <%= each_request.sender_id %>
+    </li>
+    <form action="/modify_followrequest" method="post">
+    <input type="hidden" name="query_recipient_id" value="<%= each_request.recipient_id  %>"> 
+    <input type="hidden" name="query_sender_id" value="<%= each_request.sender_id %>"> 
+    <input type="hidden" name="query_status" value="accepted"> 
+    <button>Accept</button>
+    <form action="/modify_followrequest" method="post">
+    <input type="hidden" name="query_recipient_id" value="<%= each_request.recipient_id  %>"> 
+    <input type="hidden" name="query_sender_id" value="<%= each_request.sender_id %>"> 
+    <input type="hidden" name="query_status" value="rejected"> 
+    <button>Reject</button>
+  </ul>
   <dt>Following</dt>
-  <dd>0<dd> 
+  <dd><%= @count_of_following %><dd>
   <dt>Edit user</dt>
   <dd>
     <form action="/modify_user" method="post">

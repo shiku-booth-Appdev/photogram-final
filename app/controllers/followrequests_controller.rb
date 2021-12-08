@@ -35,6 +35,7 @@ class FollowrequestsController < ApplicationController
         the_followrequest.status = "pending"
         the_followrequest.save
         redirect_to("/users/#{recipient.username}", { :notice => "Followrequest created successfully." })
+      end
     else
         redirect_to("/users/#{recipient.username}", { :notice => "Followrequest failed to create successfully." })
     end
@@ -50,9 +51,9 @@ class FollowrequestsController < ApplicationController
 
     if the_followrequest.valid?
       the_followrequest.save
-      redirect_to("/followrequests/#{the_followrequest.id}", { :notice => "Followrequest updated successfully."} )
+      redirect_to("/users/#{recipient.username}", { :notice => "Followrequest updated successfully."} )
     else
-      redirect_to("/followrequests/#{the_followrequest.id}", { :alert => "Followrequest failed to update successfully." })
+      redirect_to("/users/#{recipient.username}", { :alert => "Followrequest failed to update successfully." })
     end
   end
 
