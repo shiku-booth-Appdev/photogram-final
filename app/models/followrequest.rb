@@ -9,7 +9,7 @@
 #  recipient_id :integer
 #  sender_id    :integer
 #
-class Followrequest < ApplicationRecord
+class FollowRequest < ApplicationRecord
 
 
 end

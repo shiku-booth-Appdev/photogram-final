@@ -11,17 +11,20 @@
     <li>
       <%= each_request.sender_id %>
     </li>
-    <form action="/modify_followrequest" method="post">
-    <input type="hidden" name="query_recipient_id" value="<%= each_request.recipient_id  %>"> 
-    <input type="hidden" name="query_sender_id" value="<%= each_request.sender_id %>"> 
-    <input type="hidden" name="query_status" value="accepted"> 
-    <button>Accept</button>
-    <form action="/modify_followrequest" method="post">
-    <input type="hidden" name="query_recipient_id" value="<%= each_request.recipient_id  %>"> 
-    <input type="hidden" name="query_sender_id" value="<%= each_request.sender_id %>"> 
-    <input type="hidden" name="query_status" value="rejected"> 
-    <button>Reject</button>
+    <form action="/modify_followrequest/<%= each_request.id %>" method="post">
+      <input type="hidden" name="query_recipient_id" value="<%= each_request.recipient_id  %>"> 
+      <input type="hidden" name="query_sender_id" value="<%= each_request.sender_id %>"> 
+      <input type="hidden" name="query_status" value="accepted"> 
+      <button>Accept</button>
+    </form>
+    <form action="/modify_followrequest/<%= each_request.id %>" method="post">
+      <input type="hidden" name="query_recipient_id" value="<%= each_request.recipient_id  %>"> 
+      <input type="hidden" name="query_sender_id" value="<%= each_request.sender_id %>"> 
+      <input type="hidden" name="query_status" value="rejected"> 
+      <button>Reject</button>
+    </form>
   </ul>
+  <% end %>
   <dt>Following</dt>
   <dd><%= @count_of_following %><dd>
   <dt>Edit user</dt>

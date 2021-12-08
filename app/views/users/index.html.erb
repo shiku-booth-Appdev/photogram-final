@@ -31,7 +31,7 @@
       </td>
       <% if @current_user != nil %>
         <td>
-          <% current_follow_status = Followrequest.where({ :recipient_id => user.id, :sender_id => session.fetch(:user_id) }) %>
+          <% current_follow_status = FollowRequest.where({ :recipient_id => user.id, :sender_id => session.fetch(:user_id) }) %>
           <% follow_status= current_follow_status.at(0)%>
 
           <% if follow_status == nil %>
