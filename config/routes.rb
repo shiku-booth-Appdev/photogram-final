@@ -117,7 +117,8 @@ end
 
 # rails generate draft:resource photo caption:text comments_count:integer image:string likes_count:integer owner_id:integer
 # rails generate draft:resource comment author_id:integer body:text photo_id:integer
-# rails generate draft:resource followrequest recipient_id:integer sender_id:integer status:string
+# rails generate draft:resource followRequest recipient_id:integer sender_id:integer status:string
+# rails generate draft:model follow_request recipient_id:integer sender_id:integer status:string
 # rails generate draft:resource like fan_id:integer photo_id:integer
 
 # rails generate draft:account user comments_count:integer email:string likes_count:integer password_digest:string private:boolean username:string
