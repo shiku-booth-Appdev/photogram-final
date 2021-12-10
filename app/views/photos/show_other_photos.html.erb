@@ -47,6 +47,26 @@
         <%= @matching_comments_count %>
       </dd>
 
+      <dt>Add a fan</dt>
+      <dd>
+        <div>
+          <% current_like_status = Like.where({ :photo_id => @the_photo.id, :fan_id => session.fetch(:user_id) }) %>
+          <% like_status= current_like_status.at(0)%>
+
+          <% if like_status == nil %>
+            <form action="/insert_like", method="post">
+              <input type="hidden" name="query_fan_id" value="<%= session.fetch(:user_id) %>"> 
+              <input type="hidden" name="query_photo_id" value="<%= @the_photo.id %>"> 
+              <button> Like </button>
+            </form>
+          <% else %>
+            <a href="/delete_like/<%= like_status.id %>">
+              Unlike
+            </a>
+          <% end %>
+        </div>
+      </dd>
+
     </dl>
   </div>
 </div>
