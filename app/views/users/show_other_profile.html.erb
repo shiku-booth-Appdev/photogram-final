@@ -9,7 +9,7 @@
   <dd><%= @count_of_following %><dd> 
 </dl>
 
-<h2>Own photos (0)</h2>
+<h2>Own photos (<%= @photos_count %>)</h2>
 <table border="1">
   <tr>
     <th> Image </th>
@@ -19,3 +19,33 @@
     <th> Likes </th>
     <th></th>
   </tr>
+  <% @user_photos.each do |photo| %>
+    <tr>
+      <td>
+        <img src="<%= photo.image %>">
+      </td>
+
+      <td>
+        <%= User.where({ :id => photo.owner_id}).at(0).username%>
+      </td>
+    
+      <td>
+        <%= photo.caption %>
+      </td>
+    
+      <td>
+        <%= time_ago_in_words(photo.created_at) %> ago
+      </td>
+    
+      <td>
+        <%= photo.likes_count %>
+      </td>
+    
+      <td>
+        <a href="/photos/<%= photo.id %>">
+          Show details
+        </a>
+      </td>
+    </tr>
+  <% end %>
+</table>

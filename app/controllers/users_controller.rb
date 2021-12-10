@@ -9,7 +9,9 @@ class UsersController < ApplicationController
 
   def show
     the_username = params.fetch("the_username")
-    @user = User.where({ :username => the_username }).at(0) 
+    @user = User.where({ :username => the_username }).at(0)
+    @user_photos = Photo.where({ :owner_id => @user.id})
+    @photos_count = Photo.where({ :owner_id => @user.id}).count()
     if @user.id != @current_user.id and @user.private == true
       redirect_to("/", { :alert => "You're not authorized for that."})
     elsif @user.id != @current_user.id and @user.private == false
