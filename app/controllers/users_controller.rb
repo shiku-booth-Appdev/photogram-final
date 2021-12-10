@@ -26,4 +26,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def show_feed
+    the_username = params.fetch("the_username")
+    @user = User.where({ :username => the_username }).at(0)
+    @user_photos = Photo.where({ :owner_id => @user.id})
+    @photos_count = Photo.where({ :owner_id => @user.id}).count()
+    @count_of_followers = FollowRequest.where({ :recipient_id => @user.id , :status => "accepted"}).count()
+    @count_of_following = FollowRequest.where({ :sender_id => @user.id , :status => "accepted"}).count()
+
+    @user_follow_recipients = FollowRequest.where({ :sender_id => @user.id, :status => "accepted"})
+
+    render({ :template => "users/show_self_feed.html.erb" })
+  end
 end

@@ -44,6 +44,21 @@
   </dd>
 </dl>
 
+<ul>
+  <li>
+    <a href="/users/<%= @user.username %>">Profile</a>
+  </li>
+  <li>
+    <a href="/users/<%= @user.username %>">Liked Photos</a>
+  </li>
+  <li>
+    <a href="/users/<%= @user.username %>/feed">Feed</a>
+  </li>
+  <li>
+    <a href="/users/<%= @user.username %>">Discover</a>
+  </li>
+</ul>
+
 <h2>Own photos (<%= @photos_count %>)</h2>
 <table border="1">
   <tr>

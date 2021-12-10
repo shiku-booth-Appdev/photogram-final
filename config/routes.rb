@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # READ
   get("/users", {:controller => "users", :action => "index"})
   get("/users/:the_username", {:controller => "users", :action => "show"})
+  get("/users/:the_username/feed", {:controller => "users", :action => "show_feed"})
   
   # Routes for the User account:
 
