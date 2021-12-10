@@ -9,12 +9,17 @@ class PhotosController < ApplicationController
 
   def show
     the_id = params.fetch("path_id")
-
     matching_photos = Photo.where({ :id => the_id })
+    @the_photo = matching_photos.at(0) 
 
-    @the_photo = matching_photos.at(0)
+    @matching_comments = Comment.where({ :photo_id => @the_photo.id})
+    @matching_comments_count = Comment.where({ :photo_id => @the_photo.id}).count()
 
-    render({ :template => "photos/show.html.erb" })
+    if @the_photo.owner_id == @current_user.id
+      render({ :template => "photos/show_self_photos.html.erb" })
+    else
+      render({ :template => "photos/show_other_photos.html.erb" })
+    end    
   end
 
   def create

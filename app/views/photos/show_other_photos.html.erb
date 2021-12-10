@@ -1,24 +1,17 @@
 <div>
   <div>
     <h1>
-      Photo #<%= @the_photo.id %> details
+      Photo details
     </h1>
 
-    <div>
-      <div>
-        <a href="/photos">
-          Go back
-        </a>
-      </div>
-
-      <div>
-        <a href="/delete_photo/<%= @the_photo.id %>">
-          Delete photo
-        </a>
-      </div>
-    </div>
-
     <dl>
+      <dt>
+        Image
+      </dt>
+      <dd>
+        <%= @the_photo.image %>
+      </dd>
+
       <dt>
         Caption
       </dt>
@@ -27,17 +20,17 @@
       </dd>
 
       <dt>
-        Comments count
+        Owner
       </dt>
       <dd>
-        <%= @the_photo.comments_count %>
+        <%= User.where({ :id => @the_photo.owner_id}).at(0).username%>
       </dd>
 
       <dt>
-        Image
+        Posted
       </dt>
       <dd>
-        <%= @the_photo.image %>
+        <%= time_ago_in_words(@the_photo.created_at) %> ago
       </dd>
 
       <dt>
@@ -48,29 +41,55 @@
       </dd>
 
       <dt>
-        Owner
+        Comments count
       </dt>
       <dd>
-        <%= @the_photo.owner_id %>
+        <%= @matching_comments_count %>
       </dd>
 
-      <dt>
-        Created at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_photo.created_at) %> ago
-      </dd>
-
-      <dt>
-        Updated at
-      </dt>
-      <dd>
-        <%= time_ago_in_words(@the_photo.updated_at) %> ago
-      </dd>
     </dl>
   </div>
 </div>
 
+<div>
+    <h2>Comments</h2>
+
+    <table>
+      <tr>
+        <th>Commenter</th>
+        <th>Comment</th>
+        <th>Posted</th>
+      </tr>
+      <% @matching_comments.each do |each_comment| %>
+      <tr>
+        <td>
+          <%= User.where({ :id => each_comment.author_id}).at(0).username%>
+        </td>
+
+        <td>
+          <%= each_comment.body %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(each_comment.created_at) %> ago
+        </td>
+      </tr>  
+      <% end %>
+    </table>
+
+    <h3>Add a new comment</h3>
+
+    <form action="/insert_comment" method="post">
+        <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
+        <input type="hidden" value="<%= session.fetch(:user_id) %>" name="query_author_id">
+        <label for="browser_comment">Comment</label>
+        <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
+
+      <button>Add comment</button>
+    </form>
+
+  </div>
+<!--
 <hr>
 
 
@@ -129,3 +148,5 @@
 </div>
 
 <hr>
+
+!-->

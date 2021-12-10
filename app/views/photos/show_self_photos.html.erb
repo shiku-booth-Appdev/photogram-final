@@ -1,0 +1,140 @@
+<div>
+  <div>
+    <h1>
+      Photo details
+    </h1>
+
+    <dl>
+      <dt>
+        Image
+      </dt>
+      <dd>
+        <img src="<%= @the_photo.image %>">
+      </dd>
+
+      <dt>
+        Caption
+      </dt>
+      <dd>
+        <%= @the_photo.caption %>
+      </dd>
+
+      <dt>
+        Owner
+      </dt>
+      <dd>
+        <%= User.where({ :id => @the_photo.owner_id}).at(0).username%>
+      </dd>
+
+      <dt>
+        Posted
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_photo.created_at) %> ago
+      </dd>
+
+      <dt>
+        Likes count
+      </dt>
+      <dd>
+        <%= @the_photo.likes_count %>
+      </dd>
+
+      <dt>
+        Comments count
+      </dt>
+      <dd>
+        <%= @matching_comments_count %>
+      </dd>
+
+      <dt>
+        Edit photo
+      </dt>
+
+      <dd>
+        <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
+    <!--  <div>
+        <label for="image_box">
+          Image URL
+        </label>
+
+        <input type="text" id="image_box" name="query_image" value="<%= @the_photo.image %>">
+      </div>
+
+      <div>
+        <label for="caption_box">
+          Caption
+        </label>
+
+        <textarea id="caption_box" name="query_caption"><%= @the_photo.caption %></textarea>
+      </div>
+    !-->
+          <label for="browser_input">Image URL</label>
+          <input id="browser_input" type="file" name="query_image" value="<%= @the_photo.image %>">
+
+          <label for="browser_caption">Caption</label>
+          <textarea id="browser_caption" name="query_caption" placeholder="Enter a caption for the photo..."></textarea>
+
+          <input type="hidden" name="query_comments_count" value="0"> 
+          <input type="hidden" name="query_likes_count" value="0"> 
+          <input type="hidden" name="query_owner_id" value="<%= session.fetch(:user_id) %>"> 
+
+          <button>
+            Update photo
+          </button>
+        </form>
+      </dd>
+
+      <dt>
+        Delete photo
+      </dt>
+
+      <dd>
+        <a href="/delete_photo/<%= @the_photo.id %>">
+              Delete this photo
+        </a>
+      </dt>
+    </dl>
+  </div>
+
+  <div>
+    <h2>Comments</h2>
+
+    <table>
+      <tr>
+        <th>Commenter</th>
+        <th>Comment</th>
+        <th>Posted</th>
+      </tr>
+      <% @matching_comments.each do |each_comment| %>
+      <tr>
+        <td>
+          <%= User.where({ :id => each_comment.author_id}).at(0).username%>
+        </td>
+
+        <td>
+          <%= each_comment.body %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(each_comment.created_at) %> ago
+        </td>
+      </tr>  
+      <% end %>
+    </table>
+
+    <h3>Add a new comment</h3>
+
+    <form action="/insert_comment" method="post">
+        <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
+        <input type="hidden" value="<%= session.fetch(:user_id) %>" name="query_author_id">
+        <label for="browser_comment">Comment</label>
+        <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
+
+      <button>Add comment</button>
+    </form>
+
+  </div>
+</div>
+
+
