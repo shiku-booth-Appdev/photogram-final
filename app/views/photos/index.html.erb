@@ -1,8 +1,13 @@
+<body>
+
 <h1>List of photos</h1>
 
-<form action="/insert_photo" method="post" enctype="multipart/form-data">
+<div>
+<form action="/insert_photo" method="post" class="form-horizontal" enctype="multipart/form-data">
   <label for="browser_input">Image</label>
-  <input id="browser_input" type="file" name="query_image" placeholder="Enter a URL for the image...">
+  <!-- <input id="browser_input" type="file" name="query_image" placeholder="Enter a URL for the image..."> -->
+
+  <input id="browser_input" type="file" name="query_image" class="form-control" placeholder="Enter a URL for the image...">
 
   <label for="browser_caption">Caption</label>
   <textarea id="browser_caption" name="query_caption" placeholder="Enter a caption for the photo..."></textarea>
@@ -13,6 +18,7 @@
 
   <button>Add photo</button>
 </form>
+</div>
 
 
 <table border="1">
@@ -30,7 +36,7 @@
     <% list_of_photos.each do |photo| %>
       <tr>
         <td>
-          <img src="<%= photo.image %>">
+          <img src="<%= photo.image %>" class="img-responsive">
         </td>
     
         <td>
@@ -58,3 +64,5 @@
     <% end %>
   <% end %>
 </table>
+
+</body>
